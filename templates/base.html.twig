@@ -24,18 +24,28 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('favorite_quotes') }}">3 best quotes</a>
                     </li>
+
                     {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('saved_quotes') }}">saved</a>
-                    </li>
-                    {% elseif is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('all_saved_quotes') }}">admin pannel quotes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_user') }}">admin pannel users</a>
-                    </li>
-{% endif %}
+
+                        {% if "ROLE_ADMIN" in app.user.roles %}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('all_saved_quotes') }}">admin pannel quotes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_user') }}">admin pannel users</a>
+                            </li>
+
+                        {% else %}
+
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ path('saved_quotes') }}">saved</a>
+                            </li>
+                        {% endif %}
+
+
+                    {% endif %}
+
 
                 </ul>
                 {% if app.user %}

@@ -29,11 +29,11 @@ class QuoteController extends AbstractController
     #[Route('/best', name: 'favorite_quotes')]
     public function favoriteQuotes(QuoteRepository $quoteRepository): Response
     {
-        $quotes= $quoteRepository->findAll();
-$quotes->findBy($c);
+        $favorites= "coucou";
+
 
         return $this->render('quote/favorite.html.twig', [
-            'quotes' => $quotes,
+            'favorite'=>$favorites
         ]);
     }
 
@@ -63,12 +63,12 @@ $quotes->findBy($c);
     }
 
     #[Route('/unsave/{id}', name: 'unsave_quote')]
-    public function unsave(Quote $quote, User $user): Response
+    public function unsave(Quote $quote): Response
     {
-        $user=$this->getUser();
+        // FONCTIONNE PAS A REVOIR !!
 
         if($quote){
-            $user->removeQuote($quote);
+            $this->getUser()->removeQuote($quote);
         }
 
         return $this->redirectToRoute('saved_quotes');

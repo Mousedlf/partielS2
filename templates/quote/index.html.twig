@@ -1,19 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello QuoteController!{% endblock %}
+{% block title %}Saved quotes{% endblock %}
 
 {% block body %}
 
     <h1 class="mb-5">Here are your saved quotes {{ app.user.username }}</h1>
 
-    {% for quote in quotes %}
-{% if quote.savedBy == app.user %}
-    <div class="card mb-3 p-3">
-        <h5>{{ quote.content}}</h5>
-        <p class="text-secondary"> by {{ quote.author}}</p>
-        <a href="{{ path('unsave_quote', {id: quote.id}) }}" class="btn btn-danger">Remove</a>
+    <div class="row">
+
+        {% for quote in quotes %}
+            {% if quote.savedBy == app.user %}
+                <div class="card col-6 mb-3 p-3">
+                    <h5>{{ quote.content}}</h5>
+                    <p class="text-secondary"> by {{ quote.author}}</p>
+
+                <div class="">
+                    <a href="{{ path('unsave_quote', {id: quote.id}) }}" class="btn btn-warning">Remove</a>
+                </div>
+
+                </div>
+
+
+            {% endif %}
+        {% endfor %}
+
     </div>
-        {% endif %}
-    {% endfor %}
+
+
+
 
 {% endblock %}
