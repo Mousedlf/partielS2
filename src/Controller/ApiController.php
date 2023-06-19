@@ -15,6 +15,8 @@ class ApiController extends AbstractController
     #[Route('/quotes', name: 'app_api', methods: ['GET'])]
     public function index(QuoteRepository $quoteRepository): Response
     {
+        //fonctionnait quand relation en ManyToOne...
+
         $quotes=$quoteRepository->findBy(['savedBy'=> $this->getUser()], ['id' => 'ASC']);
 
         $firstThreeElements = array_slice($quotes, 0, 3);

@@ -32,8 +32,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'savedBy', targetEntity: Quote::class)]
+    #[ORM\ManyToMany(targetEntity: Quote::class, mappedBy: 'savedBy')]
     private Collection $quotes;
+
+
 
 
     public function __construct()
@@ -123,7 +125,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->quotes->contains($quote)) {
             $this->quotes->add($quote);
-            $quote->setSavedBy($this);
+            $quote->addSavedBy($this);
         }
 
         return $this;
@@ -132,14 +134,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeQuote(Quote $quote): static
     {
         if ($this->quotes->removeElement($quote)) {
-            // set the owning side to null (unless already changed)
-            if ($quote->getSavedBy() === $this) {
-                $quote->setSavedBy(null);
-            }
+            $quote->removeSavedBy($this);
         }
 
         return $this;
     }
+
+
 
 
 

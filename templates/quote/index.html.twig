@@ -9,7 +9,7 @@
     <div class="row">
 
         {% for quote in quotes %}
-            {% if quote.savedBy == app.user %}
+            {% if quote.savedBy == app.user.username %}
                 <div class="card col-6 mb-3 p-3">
                     <h5>{{ quote.content}}</h5>
                     <p class="text-secondary"> by {{ quote.author}}</p>

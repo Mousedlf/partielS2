@@ -25,8 +25,9 @@ class Quote
     #[Groups(['quote:read'])]
     private ?string $author = null;
 
-    #[ORM\ManyToOne(inversedBy: 'quotes')]
-    private ?User $savedBy = null;
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'quotes')]
+    private Collection $savedBy;
+
 
     public function __construct()
     {
@@ -63,14 +64,26 @@ class Quote
         return $this;
     }
 
-    public function getSavedBy(): ?User
+    /**
+     * @return Collection<int, User>
+     */
+    public function getSavedBy(): Collection
     {
         return $this->savedBy;
     }
 
-    public function setSavedBy(?User $savedBy): static
+    public function addSavedBy(User $savedBy): static
     {
-        $this->savedBy = $savedBy;
+        if (!$this->savedBy->contains($savedBy)) {
+            $this->savedBy->add($savedBy);
+        }
+
+        return $this;
+    }
+
+    public function removeSavedBy(User $savedBy): static
+    {
+        $this->savedBy->removeElement($savedBy);
 
         return $this;
     }

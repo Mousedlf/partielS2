@@ -29,11 +29,11 @@ class QuoteController extends AbstractController
     #[Route('/best', name: 'favorite_quotes')]
     public function favoriteQuotes(QuoteRepository $quoteRepository): Response
     {
-        $favorites= "coucou";
-
+        $favorites=[];
+        //$favorites = $quoteRepository->findBy(?, ["count"=>"DESC"], 3, null);
 
         return $this->render('quote/favorite.html.twig', [
-            'favorite'=>$favorites
+            'favorites' => $favorites,
         ]);
     }
 
