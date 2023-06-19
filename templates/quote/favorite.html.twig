@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuoteController!{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-5">3 Best quotes</h1>
+
+    {% for quote in quotes %}
+            <div class="card mb-3 p-3">
+                <h5>{{ quote.content}}</h5>
+                <p class="text-secondary"> by {{ quote.author}}</p>
+                <p>{{ quote.savedBy|length}}</p>
+            </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminquoteController!{% endblock %}
+
+{% block body %}
+
+    <h1>All saved quotes</h1>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>saved by</th>
+            <th>Content</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for quote in quotes %}
+            <tr>
+                <td>{{ quote.id }}</td>
+                <td>{{ quote.savedBy.username}}</td>
+                <td>{{ quote.content}}</td>
+                <td>
+                    <a href="{{ path('remove_quote', {id: quote.id}) }}" class="btn btn-danger">Delete from DB</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

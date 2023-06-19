@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('app_home') }}" class="btn btn-warning mb-4">change quote</a>
+
+
+    <div class="card d-flex p-5">
+        <h3>{{ quote.citation.citation }}</h3>
+        <p>{{ quote.citation.infos.personnage }}</p>
+
+        <form action="{{ path('save_quote') }}">
+
+            <p>{{ quote.citation.citation }}</p>
+
+
+            <input type="hidden" name="content" value="{{ quote.citation.citation }}">
+            <input type="hidden" name="character" value="{{ quote.citation.infos.personnage }}">
+
+            <button type="submit">Save</button>
+
+
+        </form>
+
+        {% if app.user %}
+        <a href="{{ path('save_quote', {value:quote.citation.citation, author:quote.citation.infos.auteur}) }}" class="btn btn-primary">save</a>
+        {% else %}
+        <span>Log in or register to save a quote</span>
+        <a href="{{ path('app_login') }}" class="btn btn-secondary">log in</a>
+            <a href="{{ path('app_register') }}" class="btn btn-secondary">Register</a>
+
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}
