@@ -35,6 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'savedBy', targetEntity: Quote::class)]
     private Collection $quotes;
 
+
     public function __construct()
     {
         $this->quotes = new ArrayCollection();
@@ -139,4 +140,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+
+
 }

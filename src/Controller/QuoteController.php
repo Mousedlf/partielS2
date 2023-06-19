@@ -38,6 +38,7 @@ class QuoteController extends AbstractController
     }
 
 
+
     #[Route('/save', name: 'save_quote')]
     public function save(EntityManagerInterface $manager, QuoteRepository $quoteRepository, Request $request): Response
     {
@@ -50,9 +51,9 @@ class QuoteController extends AbstractController
             $quote = new Quote();
             $quote->setContent($value);
             $quote->setAuthor($author);
-            $quote->setSavedBy($this->getUser());
+            $quote->addSavedBy($this->getUser());
         }else{
-            $this->getUser()->saveQuote($quote);
+            $this->getUser()->addQuote($quote);
         }
 
         $manager->persist($quote);
